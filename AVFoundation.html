@@ -1,0 +1,442 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  AVFoundation - 刺猬的程序猿之道
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="刺猬的程序猿之道" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.jgx918.top ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="_self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="iOS.html">iOS</a></li>
+        
+        <li id=""><a target="_self" href="OpenGL.html">OpenGL</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 刺猬的程序猿之道</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        
+        <li><a target="_self" href="index.html">Home</a></li>
+        
+        <li><a target="_self" href="iOS.html">iOS</a></li>
+        
+        <li><a target="_self" href="OpenGL.html">OpenGL</a></li>
+        
+        <li><a target="_self" href="archives.html">Archives</a></li>
+        
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="OpenGL.html">OpenGL</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		
+			<div class="article">
+                <a class="clearlink" href="15127046371475.html">
+                
+                  <h1>AVAudioPlayer播放音频详解</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>AVAudioPlayer构建于Core Audio中的C-based Audio Queue Services的最顶层。所以它可以提供所有你在Audio Queue Services中所能找到的核心功能，比如播放、循环甚至音频计量。除非你需要从网络流中播放音频、需要访问原始音频样本或者需要非常低的时延，否则AVAudioPlayer都能胜任。</p>
+
+<h3 id="toc_0">1.  1. 创建AVAudioPlayer</h3>
+
+<pre><code class="language-objectivec">#import &lt;AVFoundation/AVFoundation.h&gt;
+    
+@interface ViewController ()
+    
+@property (strong, nonatomic) AVAudioPlayer *player;
+    
+@end
+    
+@implementation ViewController
+    
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // url必须是沙盒或iPod里的资源
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@&quot;难念的经&quot; withExtension:@&quot;mp3&quot;];
+    
+    // 可能是nil
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    
+    // 音量 0 - 1
+    self.player.volume = 0.5;
+    
+    // 立体声 -1（极左）到 1（极右）默认 0 (居中)
+    self.player.pan = -1;
+    
+    // 播放速率 0.5 - 2
+    self.player.rate = 1.5;
+    self.player.enableRate = YES;
+    
+    // 循环 -1 无限循环
+    self.player.numberOfLoops = -1;
+    
+    if (self.player) {
+        // 这里会取得需要的音频硬件并预加载Audio Queue的缓冲区。
+        // 可以减低调用play方法和听到声音输出的延迟
+        [self.player prepareToPlay];
+    }
+}
+    
+- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event  {
+    
+    if ([self.player isPlaying]) {
+        [self.player pause];
+    } else {
+        [self.player play];
+    }
+    
+    // 假如调用 stop 会把 prepareToPlay 所做的都撤销掉
+//    [self.player stop];
+//    self.player.currentTime = 0;
+}
+
+</code></pre>
+
+<h3 id="toc_1">2.配置音频会话</h3>
+
+<p>在AppDelegate里设置</p>
+
+<pre><code class="language-objectivec">AVAudioSession *session = [AVAudioSession sharedInstance];
+        
+NSError *error;
+if (![session setCategory:AVAudioSessionCategoryPlayback error:&amp;error]) {
+    NSLog(@&quot;Audio Category Error: %@&quot;, [error localizedDescription]);
+}
+    
+if (![session setActive:YES error:&amp;error]) {
+    NSLog(@&quot;Audio Active Error: %@&quot;, [error localizedDescription]);
+}
+
+</code></pre>
+
+<h3 id="toc_2">3.开启后台播放</h3>
+
+<p><img src="http://blogImage.jgx918.top/2017-12-08-15127048248995.jpg" alt=""/></p>
+
+<h3 id="toc_3">4.处理中断事件</h3>
+
+<p>注册AVAudioSession通知AVAudioSessionInterruptionNotification。</p>
+
+<pre><code class="language-objectivec"> // 注册中断通知
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handelInterruption:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
+    
+    
+- (void)handelInterruption:(NSNotification *)notification {
+    
+    NSDictionary *info = notification.userInfo;
+    
+    AVAudioSessionInterruptionType type = [info[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
+    
+    if (type == AVAudioSessionInterruptionTypeBegan) {
+        // Handle AVAudioSessionInterruptionTypeBegan
+        [self.player stop];
+    } else {
+        // Handle AVAudioSessionInterruptionTypeEnd
+        // 如果中断类型为AVAudioSessionInterruptionTypeEnd，userInfo字典中会包含一个AVAudioSessionInterruptionOption来表明音频会话是否已经重新激活以及是否可以再次播放
+        AVAudioSessionInterruptionOptions options = [info[AVAudioSessionInterruptionOptionKey] unsignedIntegerValue];
+        if (options == AVAudioSessionInterruptionOptionShouldResume) {
+            [self.player play];
+        }
+    }
+}
+
+</code></pre>
+
+<h3 id="toc_4">5.处理线路改变的响应</h3>
+
+<p>在iOS设备上添加或一处音频输入、输出线路时，会发生线路改变。比如用户插上/拔掉耳机，音频会根据情况改变输入或输入线路，同时AVAudioSession会广播一个描述该变化的通知。</p>
+
+<pre><code class="language-objectivec">// 注册线路改变通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handelRouteChange:) name:AVAudioSessionRouteChangeNotification object:[AVAudioSession sharedInstance]];
+    
+    
+// 线路改变通知
+- (void)handelRouteChange:(NSNotification *)notification {
+    
+    NSDictionary *info = notification.userInfo;
+    
+    AVAudioSessionRouteChangeReason reason = [info[AVAudioSessionRouteChangeReasonKey] unsignedIntegerValue];
+    
+    if (reason == AVAudioSessionRouteChangeReasonOldDeviceUnavailable) {
+        // 获取前一个线路的AVAudioSessionRouteDescription
+        AVAudioSessionRouteDescription *previousRoute = info[AVAudioSessionRouteChangePreviousRouteKey];
+        
+        // 找到第一个输出接口
+        AVAudioSessionPortDescription *previousOutput = previousRoute.outputs[0];
+        NSString *portType = previousOutput.portType;
+        
+        if ([portType isEqualToString:AVAudioSessionPortHeadphones]) {// 是否是耳机
+            // 当断开耳机时，停止播放音频
+            [self.player stop];
+        }
+    }
+}
+
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2017/12/8</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='AVFoundation.html'>AVFoundation</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			   
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <div class="site-a-logo"><img src="http://image.jgx918.top/2017-09-27-GX_Logo.png" /></div>
+            
+                <h1>刺猬的程序猿之道</h1>
+                <div class="site-des">iOS开发,技术分享</div>
+                <div class="social">
+
+
+
+<a target="_blank" class="linkedin" href="https://www.linkedin.com/in/光祥-蒋-991965100/" title="LinkedIn">LinkedIn</a>
+
+
+
+<a target="_blank" class="weibo" href="http://weibo.com/JGXWB" title="weibo">Weibo</a>
+
+<a target="_blank" class="github" target="_blank" href="https://github.com/GXFrighting" title="GitHub">GitHub</a>
+<a target="_blank" class="email" href="mailto:13189876035@163.com" title="Email">Email</a>
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="OpenGL.html"><strong>OpenGL</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15416870987518.html">1. SSH连接到iPhone</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15409946209221.html">0.面向对象</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15348166022735.html">0. 越狱环境搭建</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15217295034578.html">TabNavigator</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15130502680661.html">iOS Core Data学习笔记1：第一个Core Data App</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1264543031'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1264543031%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  </body>
+</html>

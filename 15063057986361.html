@@ -1,0 +1,466 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  iOS一个支持（1-n）级下拉筛选组件 - 刺猬的程序猿之道
+  
+  </title>
+  <meta name="keywords" content="iOS下拉筛选组件" />
+  <meta name="description" content="iOS一个支持（1-n）级下拉筛选组件" />
+  <link href="atom.xml" rel="alternate" title="刺猬的程序猿之道" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.jgx918.top ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="_self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="iOS.html">iOS</a></li>
+        
+        <li id=""><a target="_self" href="OpenGL.html">OpenGL</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 刺猬的程序猿之道</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        
+        <li><a target="_self" href="index.html">Home</a></li>
+        
+        <li><a target="_self" href="iOS.html">iOS</a></li>
+        
+        <li><a target="_self" href="OpenGL.html">OpenGL</a></li>
+        
+        <li><a target="_self" href="archives.html">Archives</a></li>
+        
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="OpenGL.html">OpenGL</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>iOS一个支持（1-n）级下拉筛选组件</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2017/9/25</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <h1 id="toc_0">GXComboBox</h1>
+
+<p><a href="https://travis-ci.org/GXFrighting/GXComboBox"><img src="http://img.shields.io/travis/GXFrighting/GXComboBox.svg?style=flat" alt="CI Status"/></a><br/>
+<a href="http://cocoapods.org/pods/GXComboBox"><img src="https://img.shields.io/cocoapods/v/GXComboBox.svg?style=flat" alt="Version"/></a><br/>
+<a href="http://cocoapods.org/pods/GXComboBox"><img src="https://img.shields.io/cocoapods/l/GXComboBox.svg?style=flat" alt="License"/></a><br/>
+<a href="http://cocoapods.org/pods/GXComboBox"><img src="https://img.shields.io/cocoapods/p/GXComboBox.svg?style=flat" alt="Platform"/></a></p>
+
+<ul>
+<li>一个支持（1-n）级下拉筛选组件(<a href="https://github.com/GXFrighting/GXComboBox">传送门</a>)</li>
+</ul>
+
+<h2 id="toc_1">Requirements</h2>
+
+<ul>
+<li>iOS 9.0+</li>
+<li>Swift 3</li>
+</ul>
+
+<h2 id="toc_2">Example</h2>
+
+<p>To run the example project, clone the repo, and run <code>pod install</code> from the Example directory first.</p>
+
+<h2 id="toc_3">Installation</h2>
+
+<p>GXComboBox is available through <a href="http://cocoapods.org">CocoaPods</a>. To install<br/>
+it, simply add the following line to your Podfile:</p>
+
+<pre><code class="language-ruby">pod &#39;GXComboBox&#39;
+</code></pre>
+
+<h2 id="toc_4">Contents</h2>
+
+<p><img src="http://image.jgx918.top/2017-09-25-Untitled.gif" alt="Untitled"/></p>
+
+<h2 id="toc_5">How to use GXComboBox</h2>
+
+<ul>
+<li>GXComboBox use is like UITableView</li>
+</ul>
+
+<pre><code class="language-text">comboBoxView.delegate = self
+comboBoxView.dataSoure = self
+</code></pre>
+
+<pre><code class="language-text">// MARK: GXComboBoxViewDataSoure
+protocol GXComboBoxViewDataSoure {
+    
+    /// 在这里注册每个TableView Cell
+    ///
+    /// - Parameters:
+    ///   - comboBoxView: comboBoxView
+    ///   - column: 列数
+    ///   - section: 第几个TableView
+    ///   - tableView: TableView
+    /// - Returns: void
+    func comboBoxView(_ comboBoxView: GXComboBoxView, numberOfSectionInColumn column: Int, section: Int, regiseCell tableView: UITableView)
+    
+    /// 获取列数
+    ///
+    /// - Parameters:
+    ///   - comboBoxView: comboBoxView
+    /// - Returns: 列数（顶部按钮多少个）
+    func numberOfColumn(in comboBoxView: GXComboBoxView) -&gt; Int
+    
+    /// 获取列对应的tableView个数
+    ///
+    /// - Parameters:
+    ///   - comboBoxView: comboBoxView
+    ///   - column: 列数
+    /// - Returns: tableView个数
+    func comboBoxView(_ comboBoxView: GXComboBoxView, numberOfSectionInColumn column: Int) -&gt; Int
+
+    /// 获取每个tableview row个数
+    ///
+    /// - Parameters:
+    ///   - comboBoxView: comboBoxView
+    ///   - column: 列数
+    ///   - section: 第几个TableView
+    /// - Returns: row
+    func comboBoxView(_ comboBoxView: GXComboBoxView, numberOfRowsInColum column: Int, section: Int) -&gt; Int
+
+    /// 获取cell
+    ///
+    /// - Parameters:
+    ///   - comboBoxView: comboBoxView
+    ///   - indexPath: indexPath
+    /// - Returns: cell
+    func comboBoxView(_ comboBoxView: GXComboBoxView, cellForRowAt indexPath: GXIndexPath) -&gt; UITableViewCell
+    
+    /// 按钮的标题
+    ///
+    /// - Parameters:
+    ///   - comboBoxView: comboBoxView
+    ///   - column: 列数
+    /// - Returns: 按钮标题
+    func titleOfColumn(_ comboBoxView: GXComboBoxView, numberOfColumn column: Int) -&gt; String
+}
+
+// MARK: GXComboBoxViewDelegate
+protocol GXComboBoxViewDelegate {
+    
+    /// cell height
+    ///
+    /// - Parameters:
+    ///   - comboBoxView: comboBoxView
+    ///   - indexPath: indexPath
+    /// - Returns: cell height
+    func comboBoxView(_ comboBoxView: GXComboBoxView, heightForRowAt indexPath: GXIndexPath) -&gt; CGFloat
+    
+    /// cell click
+    ///
+    /// - Parameters:
+    ///   - comboBoxView: comboBoxView
+    ///   - indexPath: indexPath
+    func comboBoxView(_ comboBoxView: GXComboBoxView, didSelectedRowAt indexPath: GXIndexPath)
+}
+</code></pre>
+
+<h2 id="toc_6">GXIndexPath</h2>
+
+<pre><code class="language-text">class GXIndexPath {
+    /// 列 （顶部按钮tag 0，1，2...）
+    var column: Int
+    /// 第几个tableview
+    var section: Int
+    /// 第几行
+    var row: Int
+    
+    init(row: Int, section: Int, column: Int) {
+        self.section = section
+        self.row = row
+        self.column = column
+    }
+}
+</code></pre>
+
+<p><img src="http://image.jgx918.top/2017-09-25-GXIndexPath.png" alt="GXIndexPath"/></p>
+
+<h2 id="toc_7">Author</h2>
+
+<p>GXFrighting, <a href="mailto:157610665@qq.com">157610665@qq.com</a></p>
+
+<h2 id="toc_8">License</h2>
+
+<p>GXComboBox is available under the MIT license. See the LICENSE file for more info.</p>
+
+
+    
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="15068655439253.html" 
+          title="Previous Post: Swift4新特性">&laquo; Swift4新特性</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <div class="site-a-logo"><img src="http://image.jgx918.top/2017-09-27-GX_Logo.png" /></div>
+            
+                <h1>刺猬的程序猿之道</h1>
+                <div class="site-des">iOS开发,技术分享</div>
+                <div class="social">
+
+
+
+<a target="_blank" class="linkedin" href="https://www.linkedin.com/in/光祥-蒋-991965100/" title="LinkedIn">LinkedIn</a>
+
+
+
+<a target="_blank" class="weibo" href="http://weibo.com/JGXWB" title="weibo">Weibo</a>
+
+<a target="_blank" class="github" target="_blank" href="https://github.com/GXFrighting" title="GitHub">GitHub</a>
+<a target="_blank" class="email" href="mailto:13189876035@163.com" title="Email">Email</a>
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="OpenGL.html"><strong>OpenGL</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15416870987518.html">1. SSH连接到iPhone</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15409946209221.html">0.面向对象</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15348166022735.html">0. 越狱环境搭建</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15217295034578.html">TabNavigator</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15130502680661.html">iOS Core Data学习笔记1：第一个Core Data App</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1264543031'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1264543031%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  </body>
+</html>
